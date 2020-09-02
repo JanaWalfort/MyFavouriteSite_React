@@ -5,7 +5,7 @@ import React from 'react';
 import { IS_DEVELOPMENT } from './constants/environment';
 
 // Components
-import App, { HotApp } from './components/App';
+import App, { HotApp } from './components/App/App.jsx';
 
 const tappElement = document.querySelector('.tapp');
 
