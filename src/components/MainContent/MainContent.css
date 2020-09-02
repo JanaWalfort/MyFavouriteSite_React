@@ -32,3 +32,22 @@
     margin: 10px 0;
     align-self: center;
 }
+
+.siteIcon {
+    background-image: url(https://sub60.tobit.com/l/152342); width: 57px; height: 57px;
+}
+
+.listSites {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.siteElement {
+    height: 100px;
+    width: 88px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

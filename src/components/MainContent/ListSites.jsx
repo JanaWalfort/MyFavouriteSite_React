@@ -1,43 +1,65 @@
+/* eslint-disable react/jsx-wrap-multilines */
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable no-console */
+/* eslint-disable react/jsx-tag-spacing */
 /* eslint-disable react/no-unused-state */
 /* eslint-disable no-unused-vars */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable react/self-closing-comp */
 import React, { PureComponent } from 'react';
-import './MainContent.css';
+import { Button } from 'chayns-components';
 import Sites from './Sites.jsx';
+import './MainContent.css';
+
+/* pic.style = `background-image: url(https://sub60.tobit.com/l/${locationId}); width: 57px; height: 57px`; */
+/* defaultBackground.style = 'background-image: url(https://sub60.tobit.com/l/152342); width: 57px; height: 57px'; */
 
 export default class ListSites extends PureComponent {
     constructor() {
         super();
         this.state = {
-            data: [],
-            searchString: '',
+            arrayData: [],
+            searchString: 'love',
             counter: 0,
         };
 
         this.fetchSites = this.fetchSites.bind(this);
     }
 
+    componentDidMount() {
+        this.fetchSites();
+    }
+
     fetchSites() {
-        fetch('https://chayns1.tobit.com/TappApi/Site/SlitteApp?SearchString=love&Skip=0&Take=14')
+        fetch(`https://chayns1.tobit.com/TappApi/Site/SlitteApp?SearchString=${this.state.searchString}&Skip=${this.state.counter}&Take=28`)
             .then((resp) => resp.json())
             .then((json) => {
                 this.setState((prevState) => ({
-                    data: prevState.data.concat(json.Data),
-                    counter: prevState.counter + 14,
+                    arrayData: [...prevState.arrayData.concat(json.Data)],
+                    counter: prevState.counter + 28,
                 }));
+                console.log(`fetch: ${this.state.searchString}`);
             })
-            .catch(() => {});
+            .catch(() => { console.log('error!'); });
     }
 
-    generateSites() {
-
-    }
 
     render() {
+        chayns.hideWaitCursor();
+        const data = this.state.arrayData;
         return (
-            <div className="sitesRoot">
-                Test
+            <div className="mainBody">
+                <div className="listSites">
+                    {data.map((site) => <Sites
+                        key={site.locationId}
+                        name={site.appstoreName.substring(0, 10)}
+                        siteId={site.siteId}
+                        fetchSites={this.fetchSites}
+                    />)}
+                </div>
+                <div className="moreContainer">
+                    <Button id="more" className="button" onClick={this.fetchSites}>Mehr</Button>
+                </div>
             </div>
         );
     }

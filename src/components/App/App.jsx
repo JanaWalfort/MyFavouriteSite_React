@@ -6,7 +6,9 @@ import './App.css';
 
 import Intro from '../Intro/Intro.jsx';
 import Formular from '../Formular/Form.jsx';
-import Sites from '../MainContent/Sites.jsx';
+import ListSites from '../MainContent/ListSites.jsx';
+import Filter from '../MainContent/Filter.jsx';
+
 
 class App extends PureComponent {
     render() {
@@ -15,11 +17,9 @@ class App extends PureComponent {
                 <Intro />
                 <Formular />
                 <div className="box">
-                    <Sites />
+                    <Filter />
+                    <ListSites />
                 </div>
-                {/*
-                <Footer />
-                */ }
             </div>
         );
     }

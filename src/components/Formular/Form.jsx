@@ -3,7 +3,7 @@
 /* eslint-disable no-console */
 /* eslint-disable react/jsx-tag-spacing */
 import React, { PureComponent } from 'react';
-import { Accordion, Input } from 'chayns-components';
+import { Accordion, Input, Button } from 'chayns-components';
 import './formular.css';
 
 export default class FormCompunents extends PureComponent {
@@ -50,13 +50,13 @@ export default class FormCompunents extends PureComponent {
                         <div className="accordion__content">
                             <p>Hier kannst du einen Antrag ausfüllen, um deine Seiten bei My Favourite Sites zu speichern!</p>
                             <div className="flexContainer">
-                                <Input id="nameInput" type="text" dynamic="true" placeholder="Name" />
-                                <Input id="emailInput" type="text" dynamic="true" placeholder="e-Mail" />
-                                <Input id="adressInput" type="text" dynamic="true" placeholder="Adresse" />
-                                <Input id="urlInput" type="text" dynamic="true" placeholder="Url der Seite" />
-                                <Input id="commentInput" type="text" dynamic="true" placeholder="Kommentar" />
+                                <Input id="nameInput" type="text" dynamic placeholder="Name" />
+                                <Input id="emailInput" type="text" dynamic placeholder="e-Mail" />
+                                <Input id="adressInput" type="text" dynamic placeholder="Adresse" />
+                                <Input id="urlInput" type="text" dynamic placeholder="Url der Seite" />
+                                <Input id="commentInput" type="text" dynamic placeholder="Kommentar" />
 
-                                <button type="button" id="sendButton" className="button" onClick={this.handleSubmit}>Absenden</button>
+                                <Button id="sendButton" className="button" onClick={() => { this.handleSubmit(); }}>Absenden</Button>
                             </div>
                         </div>
                     </Accordion>
