@@ -10,6 +10,9 @@ export default class Sites extends PureComponent {
         return (
             <div>
                 <Filter />
+                <div>
+                    Test
+                </div>
                 <ListSites />
                 <MoreButton />
             </div>
