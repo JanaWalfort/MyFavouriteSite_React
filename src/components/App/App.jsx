@@ -5,7 +5,7 @@ import './App.css';
 
 
 import Intro from '../Intro/Intro.jsx';
-import Formular from '../Formular/FormContainer.jsx';
+import Formular from '../Formular/Form.jsx';
 import Sites from '../MainContent/Sites.jsx';
 
 class App extends PureComponent {
