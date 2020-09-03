@@ -12,7 +12,8 @@ import './MainContent.css';
 function Sites(props) {
     return (
         <div>
-            <div className="siteElement" onClick={props.goToSite}>
+            {/* <div className="siteElement" onClick={props.goToSite}> */}
+            <div className="siteElement" onClick={() => window.open(`https://chayns.net/${props.siteId}`)}>
                 <div className="siteIcon">
                     <div
                         id={props.siteId}
@@ -23,7 +24,7 @@ function Sites(props) {
                         }}
                     />
                 </div>
-                <p>{props.name}</p>
+                <p className="siteName">{props.name}</p>
             </div>
         </div>
     );
