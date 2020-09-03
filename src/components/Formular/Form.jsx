@@ -30,10 +30,10 @@ export default class FormCompunents extends PureComponent {
                 text: message,
             })
                 .then(() => {
-                    if (name && email) {
+                    if (name && email && url) {
                         chayns.dialog.alert(`${firstName}, das Formular wurde abgeschickt.`);
                     } else {
-                        chayns.dialog.alert('Fülle bitte die Felder Name und e-Mail aus.');
+                        chayns.dialog.alert('Fülle bitte die Felder Name, e-Mail und Url aus.');
                     }
                 });
         } else {

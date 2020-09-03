@@ -9,14 +9,11 @@
 /* eslint-disable react/self-closing-comp */
 import React, { PureComponent } from 'react';
 import { Button } from 'chayns-components';
-import { counter } from '@fortawesome/fontawesome-svg-core';
 
 import Sites from './Sites.jsx';
 import Filter from './Filter.jsx';
 import './MainContent.css';
 
-/* pic.style = `background-image: url(https://sub60.tobit.com/l/${locationId}); width: 57px; height: 57px`; */
-/* defaultBackground.style = 'background-image: url(https://sub60.tobit.com/l/152342); width: 57px; height: 57px'; */
 
 export default class ListSites extends PureComponent {
     constructor() {
@@ -26,6 +23,7 @@ export default class ListSites extends PureComponent {
             searchString: 'love',
             counter: 0,
             timeout: null,
+            disableButton: true,
         };
 
         this.fetchSites = this.fetchSites.bind(this);
@@ -37,15 +35,13 @@ export default class ListSites extends PureComponent {
     }
 
     async fetchSites() {
-        // await fetch(`https://chayns1.tobit.com/TappApi/Site/SlitteApp?SearchString=${this.state.searchString}&Skip=${this.state.counter}&Take=28`)
-        //     .then((resp) => resp.json())
-        //     .then((json) => {
-        //         console.log(json.Data.length);
-
+        const { timeout } = this.state;
+        if (timeout !== null) {
+            clearTimeout(timeout);
+        }
         try {
             const resp = await fetch(`https://chayns1.tobit.com/TappApi/Site/SlitteApp?SearchString=${this.state.searchString}&Skip=${this.state.counter}&Take=28`);
             const list = await resp.json();
-
 
             this.setState((prevState) => ({
                 arrayData: [...prevState.arrayData.concat(list.Data)],
@@ -70,22 +66,23 @@ export default class ListSites extends PureComponent {
                             arrayData: [],
                             searchString: newSearchString,
                             counter: 0,
+                            timeout: 0,
                         });
                         this.fetchSites();
                         console.log('working!');
                     }
-                }, 500),
+                }, 1000),
         });
     }
 
     render() {
         chayns.hideWaitCursor();
         const data = this.state.arrayData;
-        console.log(data.length);
         return (
             <div className="mainBody">
                 <div className="filterBar">
                     <Filter search={this.search} />
+
 
                 </div>
                 <div className="listSites">
@@ -97,7 +94,9 @@ export default class ListSites extends PureComponent {
                     />)}
                 </div>
                 <div className="moreContainer">
-                    <Button id="more" className="button" onClick={this.fetchSites}>Mehr</Button>
+                    {this.statedisableButton
+                        ? <Button id="more" className="button" onClick={this.fetchSites}>Mehr</Button>
+                        : null }
                 </div>
             </div>
         );
