@@ -12,13 +12,15 @@ import './MainContent.css';
 function Sites(props) {
     return (
         <div>
-            <div className="siteElement">
+            <div className="siteElement" onClick={props.goToSite}>
                 <div className="siteIcon">
-                    <div style={{
-                        backgroundImage: `url(https://sub60.tobit.com/l/${props.siteId})`,
-                        width: '57px',
-                        height: '57px',
-                    }}
+                    <div
+                        id={props.siteId}
+                        style={{
+                            backgroundImage: `url(https://sub60.tobit.com/l/${props.siteId})`,
+                            width: '57px',
+                            height: '57px',
+                        }}
                     />
                 </div>
                 <p>{props.name}</p>

@@ -24,6 +24,7 @@ export default class ListSites extends PureComponent {
         };
 
         this.fetchSites = this.fetchSites.bind(this);
+        this.goToSite = this.goToSite.bind(this);
     }
 
     componentDidMount() {
@@ -43,6 +44,10 @@ export default class ListSites extends PureComponent {
             .catch(() => { console.log('error!'); });
     }
 
+    goToSite(event) {
+        const siteId = event.target.id;
+        chayns.openUrlInBrowser(`https://chayns.net/${siteId}`);
+    }
 
     render() {
         chayns.hideWaitCursor();
@@ -54,7 +59,7 @@ export default class ListSites extends PureComponent {
                         key={site.locationId}
                         name={site.appstoreName.substring(0, 10)}
                         siteId={site.siteId}
-                        fetchSites={this.fetchSites}
+                        goToSite={this.goToSite}
                     />)}
                 </div>
                 <div className="moreContainer">
