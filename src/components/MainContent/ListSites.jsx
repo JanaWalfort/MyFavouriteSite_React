@@ -1,3 +1,4 @@
+/* eslint-disable react/no-access-state-in-setstate */
 /* eslint-disable max-len */
 /* eslint-disable react/jsx-wrap-multilines */
 /* eslint-disable react/destructuring-assignment */
@@ -23,7 +24,7 @@ export default class ListSites extends PureComponent {
             searchString: 'love',
             counter: 0,
             timeout: null,
-            disableButton: true,
+            showButton: true,
         };
 
         this.fetchSites = this.fetchSites.bind(this);
@@ -40,6 +41,8 @@ export default class ListSites extends PureComponent {
             clearTimeout(timeout);
         }
         try {
+            // `https://chayns1.tobit.com/TappApi/Site/SlitteApp?SearchString=${this.state.searchString}&Skip=${this.state.counter}&Take=28`
+            // `https://chayns2.tobit.com/SiteSearchApi/location/search/${this.state.searchString}/?skip=${this.state.counter}&take=20`
             const resp = await fetch(`https://chayns1.tobit.com/TappApi/Site/SlitteApp?SearchString=${this.state.searchString}&Skip=${this.state.counter}&Take=28`);
             const list = await resp.json();
 
@@ -47,8 +50,17 @@ export default class ListSites extends PureComponent {
                 arrayData: [...prevState.arrayData.concat(list.Data)],
                 counter: prevState.counter + 28,
             }));
+            if (this.state.arrayData.length % 28) {
+                this.setState({
+                    showButton: false,
+                });
+            } else {
+                this.setState({
+                    showButton: true,
+                });
+            }
         } catch (error) {
-            console.log('error!');
+            console.log(error);
         }
     }
 
@@ -69,7 +81,6 @@ export default class ListSites extends PureComponent {
                             timeout: 0,
                         });
                         this.fetchSites();
-                        console.log('working!');
                     }
                 }, 1000),
         });
@@ -94,9 +105,9 @@ export default class ListSites extends PureComponent {
                     />)}
                 </div>
                 <div className="moreContainer">
-                    {this.statedisableButton
+                    {this.state.showButton
                         ? <Button id="more" className="button" onClick={this.fetchSites}>Mehr</Button>
-                        : null }
+                        : null}
                 </div>
             </div>
         );
