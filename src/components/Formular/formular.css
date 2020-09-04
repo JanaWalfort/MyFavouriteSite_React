@@ -1,0 +1,8 @@
+.flexContainer{
+    display: flex;
+    flex-direction: column;
+}
+#sendButton {
+    margin: 10px 0;
+    align-self: center;
+}
