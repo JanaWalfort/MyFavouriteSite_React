@@ -1,5 +1,5 @@
+/* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable class-methods-use-this */
-/* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 /* eslint-disable react/jsx-tag-spacing */
 import React, { PureComponent } from 'react';
@@ -9,13 +9,10 @@ import './formular.css';
 export default class FormCompunents extends PureComponent {
     constructor() {
         super();
-        this.state = {
-
-        };
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleSubmit(event) {
+    handleSubmit() {
         const { firstName } = chayns.env.user;
         if (chayns.env.user.isAuthenticated) {
             const name = document.querySelector('#nameInput').value;
@@ -37,31 +34,60 @@ export default class FormCompunents extends PureComponent {
                     }
                 });
         } else {
-            chayns.dialog.alert('Login missing', 'To send a message, you have to login.');
+            chayns.dialog.alert('Login missing', 'Um das Formular absenden zu können musst du angemeldet sein.');
         }
-        console.log('submitted!');
     }
 
     render() {
         return (
-            <div>
-                <form className="formular-form">
-                    <Accordion head="eigene Seite hinzufügen">
-                        <div className="accordion__content">
-                            <p>Hier kannst du einen Antrag ausfüllen, um deine Seiten bei My Favourite Sites zu speichern!</p>
-                            <div className="flexContainer">
-                                <Input id="nameInput" type="text" dynamic placeholder="Name" />
-                                <Input id="emailInput" type="text" dynamic placeholder="e-Mail" />
-                                <Input id="adressInput" type="text" dynamic placeholder="Adresse" />
-                                <Input id="urlInput" type="text" dynamic placeholder="Url der Seite" />
-                                <Input id="commentInput" type="text" dynamic placeholder="Kommentar" />
+            <form className="formular-form">
+                <Accordion head="eigene Seite hinzufügen">
+                    <div className="accordion__content">
+                        <p>Hier kannst du einen Antrag ausfüllen, um deine Seiten bei My Favourite Sites zu speichern!</p>
+                        <div className="flexContainer">
+                            <Input
+                                id="nameInput"
+                                type="text"
+                                dynamic
+                                placeholder="Name"
+                            />
+                            <Input
+                                id="emailInput"
+                                type="text"
+                                dynami
+                                placeholder="e-Mail"
+                            />
+                            <Input
+                                id="adressInput"
+                                type="text"
+                                dynamic
+                                placeholder="Adresse"
+                            />
+                            <Input
+                                id="urlInput"
+                                type="text"
+                                dynamic
+                                placeholder="Url der Seite"
+                            />
+                            <Input
+                                id="commentInput"
+                                type="text"
+                                dynamic
+                                placeholder="Kommentar"
+                            />
 
-                                <Button id="sendButton" className="button" onClick={() => { this.handleSubmit(); }}>Absenden</Button>
-                            </div>
-                        </div>
-                    </Accordion>
-                </form>
-            </div>
+                            <Button
+                                id="sendButton"
+                                className="button"
+                                onClick={() => { this.handleSubmit(); }}
+                            >
+                                Absenden
+                            </Button>
+
+                        </div> {/* / flexContainer */}
+                    </div> {/* accordion__content */}
+                </Accordion>
+            </form>
         );
     }
 }

@@ -8,11 +8,13 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable react/self-closing-comp */
+
 import React, { PureComponent } from 'react';
 import { Button } from 'chayns-components';
 
-import Sites from './Sites.jsx';
-import Filter from './Filter.jsx';
+import Sites from './SiteContent/Sites.jsx';
+import Filter from './SiteContent/Filter.jsx';
+
 import './MainContent.css';
 
 
@@ -41,16 +43,14 @@ export default class ListSites extends PureComponent {
             clearTimeout(timeout);
         }
         try {
-            // `https://chayns1.tobit.com/TappApi/Site/SlitteApp?SearchString=${this.state.searchString}&Skip=${this.state.counter}&Take=28`
-            // `https://chayns2.tobit.com/SiteSearchApi/location/search/${this.state.searchString}/?skip=${this.state.counter}&take=20`
-            const resp = await fetch(`https://chayns1.tobit.com/TappApi/Site/SlitteApp?SearchString=${this.state.searchString}&Skip=${this.state.counter}&Take=28`);
+            const resp = await fetch(`https://chayns2.tobit.com/SiteSearchApi/location/search/${this.state.searchString}/?skip=${this.state.counter}&take=14`);
             const list = await resp.json();
 
             this.setState((prevState) => ({
-                arrayData: [...prevState.arrayData.concat(list.Data)],
-                counter: prevState.counter + 28,
+                arrayData: [...prevState.arrayData.concat(list)],
+                counter: prevState.counter + 14,
             }));
-            if (this.state.arrayData.length % 28) {
+            if (this.state.arrayData.length % 14) {
                 this.setState({
                     showButton: false,
                 });
@@ -93,17 +93,17 @@ export default class ListSites extends PureComponent {
             <div className="mainBody">
                 <div className="filterBar">
                     <Filter search={this.search} />
-
-
                 </div>
+
                 <div className="listSites">
                     {data.map((site) => <Sites
                         key={site.locationId}
-                        name={site.appstoreName}
+                        name={site.locationName}
                         siteId={site.siteId}
                         goToSite={this.goToSite}
                     />)}
                 </div>
+
                 <div className="moreContainer">
                     {this.state.showButton
                         ? <Button id="more" className="button" onClick={this.fetchSites}>Mehr</Button>

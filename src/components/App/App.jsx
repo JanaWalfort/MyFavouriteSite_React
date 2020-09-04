@@ -6,7 +6,7 @@ import './App.css';
 
 import Intro from '../Intro/Intro.jsx';
 import Formular from '../Formular/Form.jsx';
-import ListSites from '../MainContent/ListSites.jsx';
+import ListSites from '../Sites/ListSites.jsx';
 
 
 class App extends PureComponent {

@@ -3,7 +3,7 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/jsx-tag-spacing */
 import React from 'react';
-import './MainContent.css';
+import '../MainContent.css';
 
 /* pic.style = `background-image: url(https://sub60.tobit.com/l/${locationId}); width: 57px; height: 57px`; */
 /* defaultBackground.style = 'background-image: url(https://sub60.tobit.com/l/152342); width: 57px; height: 57px'; */
@@ -12,7 +12,6 @@ import './MainContent.css';
 function Sites(props) {
     return (
         <div>
-            {/* <div className="siteElement" onClick={props.goToSite}> */}
             <div className="siteElement" onClick={() => window.open(`https://chayns.net/${props.siteId}`)}>
                 <div className="siteIcon">
                     <div

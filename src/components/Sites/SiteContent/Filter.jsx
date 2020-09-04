@@ -1,31 +1,31 @@
+/* eslint-disable react/jsx-tag-spacing */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-unused-state */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable no-console */
 /* eslint-disable react/void-dom-elements-no-children */
-/* eslint-disable react/self-closing-comp */
 import React from 'react';
-import './MainContent.css';
+import '../MainContent.css';
 
-function Formular(props) {
+function Filter(props) {
     return (
         <div className="filterContainer">
             <div className="filter-icons">
                 <div className="filter-icon">
-                    <i className="fas fa-utensils"></i>
+                    <i className="fas fa-utensils" />
                 </div>
                 <div className="filter-icon">
-                    <i className="fas fa-film"></i>
+                    <i className="fas fa-film" />
                 </div>
                 <div className="filter-icon">
-                    <i className="fas fa-shopping-cart"></i>
+                    <i className="fas fa-shopping-cart" />
                 </div>
                 <div className="filter-icon">
-                    <i className="fas fa-bicycle"></i>
+                    <i className="fas fa-bicycle" />
                 </div>
                 <div className="filter-icon">
-                    <i className="fas fa-heartbeat"></i>
+                    <i className="fas fa-heartbeat" />
                 </div>
             </div>
             <input
@@ -34,10 +34,9 @@ function Formular(props) {
                 className="input textInp"
                 type="text"
                 placeholder="Suche"
-            >
-            </input>
+            />
         </div>
     );
 }
 
-export default Formular;
+export default Filter;
