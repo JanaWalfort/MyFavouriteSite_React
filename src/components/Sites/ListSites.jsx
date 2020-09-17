@@ -1,19 +1,11 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-restricted-globals */
-/* eslint-disable react/no-access-state-in-setstate */
-/* eslint-disable max-len */
-/* eslint-disable react/jsx-wrap-multilines */
-/* eslint-disable react/destructuring-assignment */
 /* eslint-disable no-console */
-/* eslint-disable react/jsx-tag-spacing */
-/* eslint-disable react/no-unused-state */
-/* eslint-disable no-unused-vars */
-/* eslint-disable class-methods-use-this */
-/* eslint-disable react/self-closing-comp */
+/* eslint-disable react/jsx-wrap-multilines */
+/* eslint-disable react/prop-types */
 
 import React, { useState, useEffect } from 'react';
 import { Button } from 'chayns-components';
 
+// component
 import Sites from './SiteContent/Sites.jsx';
 
 import './MainContent.css';
@@ -44,6 +36,7 @@ const ListSites = ({ searchString = 'love' }) => {
         }
     }
 
+
     function buffer() {
         if (timeout > 0) {
             clearTimeout(timeout);
@@ -56,7 +49,6 @@ const ListSites = ({ searchString = 'love' }) => {
 
 
     useEffect(() => {
-        // const newSearchString = event.target.value;
         if (timeout > 0) {
             clearTimeout(timeout);
         }
@@ -66,13 +58,11 @@ const ListSites = ({ searchString = 'love' }) => {
                 setArrayData([]);
                 fetchSites(0);
                 setNewSearchString(searchString);
-                console.log('if');
-                console.log(newSearchString);
-                console.log(searchString);
             }
             setTime(0);
         }, 1000));
     }, [searchString]);
+
 
     useEffect(() => {
         if (arrayData.length % 14 || arrayData.length === 0) {
@@ -82,12 +72,10 @@ const ListSites = ({ searchString = 'love' }) => {
         }
     }, [arrayData]);
 
+
     chayns.hideWaitCursor();
     return (
         <div className="mainBody">
-            {/* <div className="filterBar">
-                <Filter searchString={searchString} setSearchString={setSearchString}/>
-            </div> */}
 
             <div className="listSites">
                 {arrayData.map((site) => <Sites

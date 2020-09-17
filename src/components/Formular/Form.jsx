@@ -1,7 +1,5 @@
 /* eslint-disable react/jsx-one-expression-per-line */
-/* eslint-disable class-methods-use-this */
-/* eslint-disable no-console */
-/* eslint-disable react/jsx-tag-spacing */
+
 import React from 'react';
 import { Accordion, Input, Button } from 'chayns-components';
 import './formular.css';

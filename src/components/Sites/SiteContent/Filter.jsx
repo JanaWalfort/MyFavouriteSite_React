@@ -1,11 +1,7 @@
-/* eslint-disable arrow-body-style */
 /* eslint-disable react/jsx-tag-spacing */
+/* eslint-disable arrow-body-style */
 /* eslint-disable react/prop-types */
-/* eslint-disable react/no-unused-state */
-/* eslint-disable class-methods-use-this */
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable no-console */
-/* eslint-disable react/void-dom-elements-no-children */
+
 import React from 'react';
 import '../MainContent.css';
 import { Input } from 'chayns-components';
