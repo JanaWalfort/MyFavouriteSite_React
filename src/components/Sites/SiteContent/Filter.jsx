@@ -8,8 +8,9 @@
 /* eslint-disable react/void-dom-elements-no-children */
 import React from 'react';
 import '../MainContent.css';
+import { Input } from 'chayns-components';
 
-const Filter = ({ newSearchString, setNewSearchString }) => {
+const Filter = ({ searchString, setSearchString }) => {
     return (
         <div className="filterContainer">
             <div className="filter-icons">
@@ -29,14 +30,16 @@ const Filter = ({ newSearchString, setNewSearchString }) => {
                     <i className="fas fa-heartbeat" />
                 </div>
             </div>
-            <input
-                onChange={setNewSearchString}
-                value={newSearchString}
-                id="search"
-                className="input textInp"
-                type="text"
-                placeholder="Suche"
-            />
+            <div>
+                <Input
+                    onChange={setSearchString}
+                    value={searchString}
+                    id="search"
+                    type="text"
+                    placeholder="Suche"
+                />
+            </div>
+
         </div>
     );
 };

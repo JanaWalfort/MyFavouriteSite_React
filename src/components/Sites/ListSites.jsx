@@ -22,7 +22,7 @@ import './MainContent.css';
 
 const ListSites = ({ searchString = 'love' }) => {
     const [arrayData, setArrayData] = useState([]);
-    const [timeout, setTime] = useState(null);
+    const [timeout, setTime] = useState(0);
     const [showButton, setShowButton] = useState(true);
     const [newSearchString, setNewSearchString] = useState();
 
@@ -52,14 +52,16 @@ const ListSites = ({ searchString = 'love' }) => {
         }
 
         setTime(setTimeout(() => {
-            if (searchString !== null && searchString !== '' && searchString !== ' ') {
+            if (searchString !== '') {
                 setArrayData([]);
-                setNewSearchString(searchString);
-
                 fetchSites(0);
+                setNewSearchString(searchString);
+                console.log('if');
+                console.log(newSearchString);
+                console.log(searchString);
             }
             setTime(0);
-        }, 3000));
+        }, 1000));
     }, [searchString]);
 
     useEffect(() => {
@@ -69,10 +71,6 @@ const ListSites = ({ searchString = 'love' }) => {
             setShowButton(true);
         }
     }, [arrayData]);
-
-    useEffect(() => {
-        fetchSites();
-    }, []);
 
     chayns.hideWaitCursor();
     return (
