@@ -15,7 +15,6 @@ import React, { useState, useEffect } from 'react';
 import { Button } from 'chayns-components';
 
 import Sites from './SiteContent/Sites.jsx';
-import Filter from './SiteContent/Filter.jsx';
 
 import './MainContent.css';
 
@@ -23,7 +22,7 @@ import './MainContent.css';
 const ListSites = ({ searchString = 'love' }) => {
     const [arrayData, setArrayData] = useState([]);
     const [timeout, setTime] = useState(0);
-    const [showButton, setShowButton] = useState(true);
+    const [showButton, setShowButton] = useState(false);
     const [newSearchString, setNewSearchString] = useState();
 
 
@@ -45,6 +44,17 @@ const ListSites = ({ searchString = 'love' }) => {
         }
     }
 
+    function buffer() {
+        if (timeout > 0) {
+            clearTimeout(timeout);
+        }
+        setTime(setTimeout(() => {
+            fetchSites(arrayData.length);
+            setTime(0);
+        }, 500));
+    }
+
+
     useEffect(() => {
         // const newSearchString = event.target.value;
         if (timeout > 0) {
@@ -65,7 +75,7 @@ const ListSites = ({ searchString = 'love' }) => {
     }, [searchString]);
 
     useEffect(() => {
-        if (arrayData.length % 14) {
+        if (arrayData.length % 14 || arrayData.length === 0) {
             setShowButton(false);
         } else {
             setShowButton(true);
@@ -89,7 +99,7 @@ const ListSites = ({ searchString = 'love' }) => {
 
             <div className="moreContainer">
                 {showButton
-                    ? <Button id="more" className="button" onClick={() => fetchSites(arrayData.length)}>Mehr</Button>
+                    ? <Button id="more" className="button" onClick={() => buffer()}>Mehr</Button>
                     : null}
             </div>
         </div>
