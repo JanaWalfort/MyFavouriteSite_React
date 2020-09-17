@@ -4,8 +4,8 @@ import React from 'react';
 import { Accordion, Input, Button } from 'chayns-components';
 import './formular.css';
 
-const FormCompunents = () => {
-    function handleSubmit() {
+const FormComponents = () => {
+    const handleSubmit = () => {
         const { firstName } = chayns.env.user;
         if (chayns.env.user.isAuthenticated) {
             const name = document.querySelector('#nameInput').value;
@@ -29,7 +29,7 @@ const FormCompunents = () => {
         } else {
             chayns.dialog.alert('Login missing', 'Um das Formular absenden zu können musst du angemeldet sein.');
         }
-    }
+    };
 
 
     return (
@@ -84,4 +84,4 @@ const FormCompunents = () => {
     );
 };
 
-export default FormCompunents;
+export default FormComponents;

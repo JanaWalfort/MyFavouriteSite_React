@@ -18,7 +18,8 @@ const ListSites = ({ searchString = 'love' }) => {
     const [newSearchString, setNewSearchString] = useState();
 
 
-    async function fetchSites(skip) {
+    const fetchSites = async (skip) => {
+        chayns.showWaitCursor();
         try {
             let resp;
             if (searchString !== '') {
@@ -34,24 +35,21 @@ const ListSites = ({ searchString = 'love' }) => {
         } catch (error) {
             console.log(error);
         }
-    }
+        chayns.hideWaitCursor();
+    };
 
 
-    function buffer() {
-        if (timeout > 0) {
-            clearTimeout(timeout);
-        }
+    const buffer = () => {
+        clearTimeout(timeout);
+
         setTime(setTimeout(() => {
             fetchSites(arrayData.length);
-            setTime(0);
         }, 500));
-    }
+    };
 
 
     useEffect(() => {
-        if (timeout > 0) {
-            clearTimeout(timeout);
-        }
+        clearTimeout(timeout);
 
         setTime(setTimeout(() => {
             if (searchString !== '') {
@@ -59,7 +57,6 @@ const ListSites = ({ searchString = 'love' }) => {
                 fetchSites(0);
                 setNewSearchString(searchString);
             }
-            setTime(0);
         }, 1000));
     }, [searchString]);
 
@@ -73,16 +70,17 @@ const ListSites = ({ searchString = 'love' }) => {
     }, [arrayData]);
 
 
-    chayns.hideWaitCursor();
     return (
         <div className="mainBody">
 
             <div className="listSites">
-                {arrayData.map((site) => <Sites
-                    key={site.locationId}
-                    name={site.locationName}
-                    siteId={site.siteId}
-                />)}
+                {
+                    arrayData.map((site) => <Sites
+                        key={site.locationId}
+                        name={site.locationName}
+                        siteId={site.siteId}
+                    />)
+                }
             </div>
 
             <div className="moreContainer">
