@@ -1,3 +1,4 @@
+/* eslint-disable arrow-body-style */
 /* eslint-disable react/jsx-tag-spacing */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-unused-state */
@@ -8,7 +9,7 @@
 import React from 'react';
 import '../MainContent.css';
 
-function Filter(props) {
+const Filter = ({ newSearchString, setNewSearchString }) => {
     return (
         <div className="filterContainer">
             <div className="filter-icons">
@@ -29,7 +30,8 @@ function Filter(props) {
                 </div>
             </div>
             <input
-                onChange={props.search}
+                onChange={setNewSearchString}
+                value={newSearchString}
                 id="search"
                 className="input textInp"
                 type="text"
@@ -37,6 +39,6 @@ function Filter(props) {
             />
         </div>
     );
-}
+};
 
 export default Filter;

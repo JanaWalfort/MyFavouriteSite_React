@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-restricted-globals */
 /* eslint-disable react/no-access-state-in-setstate */
 /* eslint-disable max-len */
 /* eslint-disable react/jsx-wrap-multilines */
@@ -9,7 +11,7 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable react/self-closing-comp */
 
-import React, { PureComponent } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from 'chayns-components';
 
 import Sites from './SiteContent/Sites.jsx';
@@ -18,98 +20,83 @@ import Filter from './SiteContent/Filter.jsx';
 import './MainContent.css';
 
 
-export default class ListSites extends PureComponent {
-    constructor() {
-        super();
-        this.state = {
-            arrayData: [],
-            searchString: 'love',
-            counter: 0,
-            timeout: null,
-            showButton: true,
-        };
+const ListSites = ({ searchString = 'love' }) => {
+    const [arrayData, setArrayData] = useState([]);
+    const [timeout, setTime] = useState(null);
+    const [showButton, setShowButton] = useState(true);
+    const [newSearchString, setNewSearchString] = useState();
 
-        this.fetchSites = this.fetchSites.bind(this);
-        this.search = this.search.bind(this);
-    }
 
-    componentDidMount() {
-        this.fetchSites();
-    }
-
-    async fetchSites() {
-        const { timeout } = this.state;
-        if (timeout !== null) {
-            clearTimeout(timeout);
-        }
+    async function fetchSites(skip) {
         try {
-            const resp = await fetch(`https://chayns2.tobit.com/SiteSearchApi/location/search/${this.state.searchString}/?skip=${this.state.counter}&take=14`);
+            let resp;
+            if (searchString !== '') {
+                resp = await fetch(`https://chayns2.tobit.com/SiteSearchApi/location/search/${searchString}/?skip=${skip}&take=14`);
+            } else {
+                resp = await fetch(`https://chayns2.tobit.com/SiteSearchApi/location/search/${newSearchString}/?skip=${skip}&take=14`);
+            }
             const list = await resp.json();
 
-            this.setState((prevState) => ({
-                arrayData: [...prevState.arrayData.concat(list)],
-                counter: prevState.counter + 14,
-            }));
-            if (this.state.arrayData.length % 14) {
-                this.setState({
-                    showButton: false,
-                });
-            } else {
-                this.setState({
-                    showButton: true,
-                });
+            if (list !== null) {
+                setArrayData((prevData) => prevData.concat(list));
             }
         } catch (error) {
             console.log(error);
         }
     }
 
-    search(event) {
-        const { timeout } = this.state;
-        const newSearchString = event.target.value;
-        if (timeout !== null) {
+    useEffect(() => {
+        // const newSearchString = event.target.value;
+        if (timeout > 0) {
             clearTimeout(timeout);
         }
-        this.setState({
-            timeout:
-                setTimeout(() => {
-                    if (newSearchString !== null && newSearchString !== '' && newSearchString !== ' ') {
-                        this.setState({
-                            arrayData: [],
-                            searchString: newSearchString,
-                            counter: 0,
-                            timeout: 0,
-                        });
-                        this.fetchSites();
-                    }
-                }, 1000),
-        });
-    }
 
-    render() {
-        chayns.hideWaitCursor();
-        const data = this.state.arrayData;
-        return (
-            <div className="mainBody">
-                <div className="filterBar">
-                    <Filter search={this.search} />
-                </div>
+        setTime(setTimeout(() => {
+            if (searchString !== null && searchString !== '' && searchString !== ' ') {
+                setArrayData([]);
+                setNewSearchString(searchString);
 
-                <div className="listSites">
-                    {data.map((site) => <Sites
-                        key={site.locationId}
-                        name={site.locationName}
-                        siteId={site.siteId}
-                        goToSite={this.goToSite}
-                    />)}
-                </div>
+                fetchSites(0);
+            }
+            setTime(0);
+        }, 3000));
+    }, [searchString]);
 
-                <div className="moreContainer">
-                    {this.state.showButton
-                        ? <Button id="more" className="button" onClick={this.fetchSites}>Mehr</Button>
-                        : null}
-                </div>
+    useEffect(() => {
+        if (arrayData.length % 14) {
+            setShowButton(false);
+        } else {
+            setShowButton(true);
+        }
+    }, [arrayData]);
+
+    useEffect(() => {
+        fetchSites();
+    }, []);
+
+    chayns.hideWaitCursor();
+    return (
+        <div className="mainBody">
+            {/* <div className="filterBar">
+                <Filter searchString={searchString} setSearchString={setSearchString}/>
+            </div> */}
+
+            <div className="listSites">
+                {arrayData.map((site) => <Sites
+                    key={site.locationId}
+                    name={site.locationName}
+                    siteId={site.siteId}
+                />)}
             </div>
-        );
-    }
-}
+
+            <div className="moreContainer">
+                {showButton
+                    ? <Button id="more" className="button" onClick={() => fetchSites(arrayData.length)}>Mehr</Button>
+                    : null}
+            </div>
+        </div>
+    );
+};
+
+
+export default ListSites;

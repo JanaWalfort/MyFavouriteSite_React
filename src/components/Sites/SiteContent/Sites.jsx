@@ -1,3 +1,4 @@
+/* eslint-disable arrow-body-style */
 /* eslint-disable no-console */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
@@ -9,7 +10,7 @@ import '../MainContent.css';
 /* defaultBackground.style = 'background-image: url(https://sub60.tobit.com/l/152342); width: 57px; height: 57px'; */
 
 // eslint-disable-next-line no-unused-vars
-function Sites(props) {
+const Sites = (props) => {
     return (
         <div>
             <div className="siteElement" onClick={() => window.open(`https://chayns.net/${props.siteId}`)}>
@@ -27,6 +28,6 @@ function Sites(props) {
             </div>
         </div>
     );
-}
+};
 
 export default Sites;
